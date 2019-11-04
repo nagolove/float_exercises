@@ -7,6 +7,7 @@ workspace "test"
 
 project "float_exercise"
     kind "ConsoleApp"
+    targetdir(".")
     language "C++"
     files { "*.cpp" }
     links { "m", "stdc++" }
