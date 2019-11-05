@@ -78,5 +78,10 @@ int main(int argc, char *argv[])
     wrap_Base2Dec("110");
     wrap_Base2Dec("111");
 
+    wrap_Base2Dec("1001");
+    wrap_Base2Dec("1011");
+    wrap_Base2Dec("0011");
+    wrap_Base2Dec("1111");
+
     return 0;
 }
