@@ -5,10 +5,15 @@
 
 void examine_float(float n) {
     assert(sizeof(int) == sizeof(float));
-    std::string buf;
+    std::string buf, nospaceBuf;
     for (int i = 31; i >= 0; i--) {
-        if ((*(int*)(&n) >> i) & 1) buf += "1";
-        else buf += "0";
+        if ((*(int*)(&n) >> i) & 1) {
+            buf += "1";
+            nospaceBuf += "1";
+        } else {
+            buf += "0";
+            nospaceBuf += "0";
+        }
 
         buf += " ";
 
@@ -20,32 +25,20 @@ void examine_float(float n) {
 }
 
 // возвращает число в десятичной системе счисления. На вход подается число
-// в системе счисления от 2 до 16 в виде строки и основание base
-int fromBaseToDec(const char* str, int base) {
+// в системе счисления от 2 в виде строки
+int from2BaseToDec(const std::string& str, int from, int to) {
     int num = 0;
-    for(int i = 0; str[i] != 0; i++) {
-        printf("str[%d] = %c\n", i, str[i]);
-    }
-    return num;
-}
-
-int from2BaseToDec(const std::string& str) {
-    int num = 0;
-    for(int i = str.size() - 1; i >= 0; i--) {
+    for(int i = str.size() - 1 + from; i >= 0 + to; i--) {
         if (str[i] == '1') {
-            printf("i = %d, str[i] = %c, pos = %d\n", i, str[i], 
-                    (int)(str.size() - i - 1));
             num += pow(2, str.size() - i - 1);
-        } else {
-            printf("0\n");
         }
     }
     return num;
 }
 
-void wrap_Base2Dec(const std::string& str) {
+void wrap_Base2Dec(const std::string& str, int from = 0, int to = 0) {
     printf("binary %s\n", str.c_str());
-    printf("dec %d\n", from2BaseToDec(str));
+    printf("dec %d\n", from2BaseToDec(str, 0, 0));
 }
 
 void wrap_examine(float n) {
@@ -69,14 +62,14 @@ int main(int argc, char *argv[])
     wrap_examine(-10000.040f);
 
     wrap_Base2Dec("1");
-    wrap_Base2Dec("000");
-    wrap_Base2Dec("001");
-    wrap_Base2Dec("010");
-    wrap_Base2Dec("011");
-    wrap_Base2Dec("100");
-    wrap_Base2Dec("101");
-    wrap_Base2Dec("110");
-    wrap_Base2Dec("111");
+    wrap_Base2Dec("000", 0, 3);
+    wrap_Base2Dec("001", 0, 3);
+    wrap_Base2Dec("010", 0, 3);
+    wrap_Base2Dec("011", 0, 3);
+    wrap_Base2Dec("100", 0, 3);
+    wrap_Base2Dec("101", 0, 3);
+    wrap_Base2Dec("110", 0, 3);
+    wrap_Base2Dec("111", 0, 3);
 
     wrap_Base2Dec("1001");
     wrap_Base2Dec("1011");
