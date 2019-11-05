@@ -1,6 +1,7 @@
 #include <cassert>
 #include <cstdio>
 #include <string>
+#include <cmath>
 
 void examine_float(float n) {
     assert(sizeof(int) == sizeof(float));
@@ -28,6 +29,25 @@ int fromBaseToDec(const char* str, int base) {
     return num;
 }
 
+int from2BaseToDec(const std::string& str) {
+    int num = 0;
+    for(int i = str.size() - 1; i >= 0; i--) {
+        if (str[i] == '1') {
+            printf("i = %d, str[i] = %c, pos = %d\n", i, str[i], 
+                    (int)(str.size() - i - 1));
+            num += pow(2, str.size() - i - 1);
+        } else {
+            printf("0\n");
+        }
+    }
+    return num;
+}
+
+void wrap_Base2Dec(const std::string& str) {
+    printf("binary %s\n", str.c_str());
+    printf("dec %d\n", from2BaseToDec(str));
+}
+
 void wrap_examine(float n) {
     printf("examine %f\n", n);
     examine_float(n);
@@ -47,6 +67,16 @@ int main(int argc, char *argv[])
     wrap_examine(10000.40f);
     wrap_examine(10000.040f);
     wrap_examine(-10000.040f);
-    fromBaseToDec("011", 2);
+
+    wrap_Base2Dec("1");
+    wrap_Base2Dec("000");
+    wrap_Base2Dec("001");
+    wrap_Base2Dec("010");
+    wrap_Base2Dec("011");
+    wrap_Base2Dec("100");
+    wrap_Base2Dec("101");
+    wrap_Base2Dec("110");
+    wrap_Base2Dec("111");
+
     return 0;
 }
