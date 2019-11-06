@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <string>
 #include <cmath>
+#include <bitset>
 
 void examine_float(float n) {
     assert(sizeof(int) == sizeof(float));
@@ -9,10 +10,14 @@ void examine_float(float n) {
     for (int i = 31; i >= 0; i--) {
         if ((*(int*)(&n) >> i) & 1) {
             buf += "1";
+            if (i < 31 && i > 7) {
             nospaceBuf += "1";
+            }
         } else {
             buf += "0";
+            if (i < 31 && i > 7) {
             nospaceBuf += "0";
+            }
         }
 
         buf += " ";
@@ -21,6 +26,9 @@ void examine_float(float n) {
         else if (i == 8) buf += "  ";
     }
     printf("%s\n", buf.c_str());
+    printf("nospaceBuf %s\n", nospaceBuf.c_str());
+    unsigned long long mant = std::bitset<64>(nospaceBuf).to_ulong();
+    printf("mant %llu", mant);
     printf("\n");
 }
 
@@ -69,7 +77,7 @@ int main(int argc, char *argv[])
     wrap_Base2Dec("100", 0, 3);
     wrap_Base2Dec("101", 0, 3);
     wrap_Base2Dec("110", 0, 3);
-    wrap_Base2Dec("111", 0, 3);
+    wrap_Base2Dec("111", 1, 3);
 
     wrap_Base2Dec("1001");
     wrap_Base2Dec("1011");
